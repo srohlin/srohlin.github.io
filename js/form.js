@@ -1,3 +1,4 @@
+
 // get all data in form and return object
 function getFormData() {
     var elements = document.getElementById("gform").elements; // all form elements
@@ -38,23 +39,24 @@ function getFormData() {
 }
 
 function handleFormSubmit(event) {  // handles form submit withtout any jquery
+    if (event.defaultPrevented) { // Form has been invalidated by another script, do not submit!
+        return false;
+    }
     event.preventDefault();           // we are submitting via xhr below
     var data = getFormData();         // get the values submitted in the form
-
 
     if (data.honeypot) {
         return false;
     }
 
-    data['currentLocationLatitude'] = currentLocation.position.lat();
-    data['currentLocationLongitude'] = currentLocation.position.lng();
-    if (suggestedLocation.position) {
-        data['suggestedLocationLatitude'] = suggestedLocation.position.lat();
-        data['suggestedLocationLongitude'] = suggestedLocation.position.lng();
-    }
-    console.log("data:", data);
-    return false;
+    delete data.honeypot;
 
+    data['latitude'] = currentLocation.position.lat();
+    data['longitude'] = currentLocation.position.lng();
+    if (suggestedLocation.position) {
+        data['moveLatitude'] = suggestedLocation.position.lat();
+        data['moveLongitude'] = suggestedLocation.position.lng();
+    }
     var url = event.target.action;  //
     var xhr = new XMLHttpRequest();
     xhr.open('POST', url);
@@ -74,8 +76,7 @@ function handleFormSubmit(event) {  // handles form submit withtout any jquery
     xhr.send(encoded);
 }
 
-function loaded() {
+$( window ).on( "load", function() {
     var form = document.getElementById('gform');
     form.addEventListener("submit", handleFormSubmit, false);
-};
-document.addEventListener('DOMContentLoaded', loaded, false);
+})

@@ -1,4 +1,4 @@
-var map, infoWindow, currentLocation, suggestedLocation;
+var map, currentLocation, suggestedLocation;
 
 var positionVallen = {
     lat: 61.485061,
@@ -10,16 +10,9 @@ function removeSuggestedLocation() {
     suggestedLocation.setMap(null);
 }
 
+// Try HTML5 geolocation.
 function initMap() {
-    // Try HTML5 geolocation.
-    infoWindow = new google.maps.InfoWindow;
-
-    suggestedLocation = new google.maps.Marker({
-        title: 'Föreslagen ny plats',
-        icon: 'images/font-awesome_4-7-0_map-signs_32.png',
-        draggable:true
-    });
-
+    var infoWindow = new google.maps.InfoWindow;
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 18,
         mapTypeId: 'satellite',
@@ -37,11 +30,22 @@ function initMap() {
         rotateControl: false,
         fullscreenControl: false
     });
-    var options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-    };
+
+    currentLocation = new google.maps.Marker({
+        title: 'Aktuell plats',
+        icon: 'images/font-awesome_4-7-0_map-marker_32.png',
+        position: positionVallen,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        draggable:true
+    });
+
+    suggestedLocation = new google.maps.Marker({
+        title: 'Föreslagen ny plats',
+        icon: 'images/font-awesome_4-7-0_map-signs_32.png',
+        draggable:true
+    });
+
 
     map.setCenter(positionVallen);
 
@@ -71,25 +75,16 @@ function initMap() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-
             map.setCenter(pos);
-
-            // currentLocation.setPosition(pos)
-            currentLocation = new google.maps.Marker({
-                animation: google.maps.Animation.DROP,
-                position: pos,
-                map: map,
-                title: 'Aktuell plats',
-                icon: 'images/font-awesome_4-7-0_map-marker_32.png',
-                draggable:true
-            });
-
+            currentLocation.setPosition(pos);
             infoWindow.setPosition(pos);
-//                infoWindow.setContent('Location found.');
-//                infoWindow.open(map);
         }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
-        }, options);
+        }, {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        });
     } else {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
@@ -99,7 +94,7 @@ function initMap() {
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(browserHasGeolocation ?
-        'Error: The Geolocation service failed.' :
-        'Error: Your browser doesn\'t support geolocation.');
+        'Fel: Lyckades inte läsa in din plats.' :
+        'Fel: Din webbläsare vill inte dela med sig av din plats.');
     infoWindow.open(map);
 }
