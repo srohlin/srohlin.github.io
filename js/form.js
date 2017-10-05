@@ -55,6 +55,9 @@ function handleFormSubmit(event) {  // handles form submit withtout any jquery
     if (data.move == "true" && suggestedLocation.position) {
         data['moveLatitude'] = suggestedLocation.position.lat();
         data['moveLongitude'] = suggestedLocation.position.lng();
+    } else {
+        data['moveLatitude'] = '';
+        data['moveLongitude'] = '';
     }
 
     var url = event.target.action;  //
