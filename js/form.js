@@ -34,7 +34,6 @@ function getFormData() {
             }
         }
     });
-    console.log(data);
     return data;
 }
 
@@ -53,10 +52,11 @@ function handleFormSubmit(event) {  // handles form submit withtout any jquery
 
     data['latitude'] = currentLocation.position.lat();
     data['longitude'] = currentLocation.position.lng();
-    if (suggestedLocation.position) {
+    if (data.move == "true" && suggestedLocation.position) {
         data['moveLatitude'] = suggestedLocation.position.lat();
         data['moveLongitude'] = suggestedLocation.position.lng();
     }
+
     var url = event.target.action;  //
     var xhr = new XMLHttpRequest();
     xhr.open('POST', url);
