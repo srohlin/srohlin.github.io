@@ -67,7 +67,7 @@ function initMap() {
     div.className = "remove-suggested-location-button";
     div.innerHTML = '<input onclick="removeSuggestedLocation();" type=button value="Ta bort föreslagen plats">';
     legend.appendChild(div);
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(legend);
+    map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {

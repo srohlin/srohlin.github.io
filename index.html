@@ -63,20 +63,20 @@
         action="https://script.google.com/macros/s/AKfycbwOX05ZOSZ_ruANDraXpLGUtb-YyZsHnthkucmIJauGXk6sMgI/exec">
         <div class="form-group honeypot">
             <label for="honeypot" class="col-sm-3 control-label sr-only">Lämna detta fält tomt</label>
-            <div class="col-sm-7">
+            <div class="col-sm-9">
                 <input type="text" class="form-control" id="honeypot" name="honeypot">
             </div>
         </div>
         <div class="form-group">
             <label for="name" class="col-sm-3 control-label">Namn</label>
-            <div class="col-sm-7">
+            <div class="col-sm-9">
                 <input type="text" class="form-control" id="name" name="name" placeholder="Ditt namn" data-error="Vänligen ange ditt namn" required>
                 <div class="help-block with-errors"></div>
             </div>
         </div>
         <div class="form-group">
             <label for="area" class="col-sm-3 control-label">Område</label>
-            <div class="col-sm-7">
+            <div class="col-sm-9">
                 <select id="area" name="area" class="form-control"
                         data-error="Vänligen välj område" required>
                     <option value="" selected disabled>Välj område</option>
@@ -92,7 +92,7 @@
         </div>
         <div class="form-group">
             <label for="number" class="col-sm-3 control-label">Passnummer</label>
-            <div class="col-sm-7">
+            <div class="col-sm-9">
                 <input type="number" class="form-control" id="number" name="number" placeholder="Passnummer"
                        pattern="\d*" data-error="Ange bara siffror" required>
                 <div class="help-block with-errors"></div>
@@ -100,13 +100,13 @@
         </div>
         <div class="form-group">
             <label for="sign" class="col-sm-3 control-label">Finns passkylt med nummer</label>
-            <div class="col-sm-7">
+            <div class="col-sm-9">
                 <input type="checkbox" id="sign" name="sign" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger" checked>
             </div>
         </div>
         <div class="form-group">
             <label for="state" class="col-sm-3 control-label">Skick</label>
-            <div class="col-sm-7">
+            <div class="col-sm-9">
                 <select id="state" name="state" class="form-control">
                     <option value="5">Utmärkt</option>
                     <option value="3" selected>Bra</option>
@@ -117,43 +117,43 @@
         </div>
         <div class="form-group">
             <label for="tower" class="col-sm-3 control-label">Torn</label>
-            <div class="col-sm-7">
+            <div class="col-sm-9">
                 <input type="checkbox" id="tower" name="tower" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="default">
             </div>
         </div>
         <div class="form-group">
             <label for="restrictions" class="col-sm-3 control-label">Bör skjutriktningar begränsas</label>
-            <div class="col-sm-7">
+            <div class="col-sm-9">
                 <input type="checkbox" id="restrictions" name="restrictions" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="danger" data-offstyle="success">
             </div>
         </div>
         <div class="form-group">
             <label for="move" class="col-sm-3 control-label">Bör passet flyttas</label>
-            <div class="col-sm-7">
+            <div class="col-sm-9">
                 <input type="checkbox" id="move" name="move" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="danger" data-offstyle="success">
                 Föreslå i så fall en ny plats med hjälp av kartan.
             </div>
         </div>
         <div class="form-group">
             <label for="clear" class="col-sm-3 control-label">Bör det röjas vid passet</label>
-            <div class="col-sm-7">
+            <div class="col-sm-9">
                 <input type="checkbox" id="clear" name="clear" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="danger" data-offstyle="success">
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-10">
+            <div class="col-sm-12">
                 <div id="map">
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label for="comment" class="col-sm-3 control-label">Eventuellt övriga kommentarer</label>
-            <div class="col-sm-7">
+            <div class="col-sm-9">
                 <textarea id="comment" name="comment" class="form-control" rows="3"></textarea>
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-7">
+            <div class="col-sm-offset-3 col-sm-9">
                 <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-send"></span>
                     Skicka in rapport
