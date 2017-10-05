@@ -4,145 +4,160 @@
     <title>Passkarta</title>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-toggle.min.css">
     <style>
-        /* Always set the map height explicitly to define the size of the div
-         * element that contains the map. */
-        #map {
-            height: 500px;
-            /*width: 100%;*/
+        #thankyou_message {
+            display: none;
         }
-        /* Optional: Makes the sample page fill the window. */
-        /*html, body {*/
-        /*height: 100%;*/
-        /*margin: 0;*/
-        /*padding: 0;*/
-        /*}*/
+        #map {
+            height: 40em;
+        }
+        .honeypot {
+            display: none;
+        }
+        #legend .remove-suggested-location-button {
+            display: none;
+        }
+        #legend {
+            font-family: 'Roboto','sans-serif';
+            background: #fff;
+            padding: 10px;
+            margin: 10px;
+            border: 3px solid #000;
+            display: none;
+        }
+        #legend div {
+            margin-bottom: 0.5em;
+        }
+        #legend img {
+            height: 2em;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h2 class="text-center">Passinventering</h2>
+            <h2>Passinventering 2017</h2>
         </div>
     </div>
-    <form id="gform" class="form-horizontal" method="post">
-        <div class="form-group">
-            <label for="name" class="col-sm-2 control-label">Namn</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" name="name" placeholder="Ditt namn">
+    <div class="row" id="thankyou_message">
+        <div class="col-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">Rapport mottagen</div>
+                <div class="panel-body">
+                    Tack för att du hjälper oss inventera passen inför nästa års lottning!
+                </div>
+            </div>
+        </div>
+    </div>
+    <form id="gform" class="form-horizontal" method="post" data-toggle="validator" role="form">
+        <div class="form-group honeypot">
+            <label for="honeypot" class="col-sm-4 control-label sr-only">Lämna detta fält tomt</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="honeypot" name="honeypot">
             </div>
         </div>
         <div class="form-group">
-            <label for="pass" class="col-sm-2 control-label">Pass</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="pass" name="pass" placeholder="Passnummer">
+            <label for="area" class="col-sm-4 control-label">Område</label>
+            <div class="col-sm-6">
+                <select id="area" name="area" class="form-control"
+                        data-error="Vänligen välj område" required>
+                    <option value="" selected disabled>Välj område</option>
+                    <option value="1">Koldemoåsen, Loberget, Brännberget</option>
+                    <option value="2">Fångåsen, Åmyret, Lilla Vassberget</option>
+                    <option value="3">Harvåsen, lLavåsen, Fagerdal</option>
+                    <option value="4">Gisselberget, Vassberget, Finntjärn</option>
+                    <option value="5">Mellbo</option>
+                    <option value="6">Snasen, Oxbacken, Degelberget</option>
+                </select>
+                <div class="help-block with-errors"></div>
             </div>
         </div>
         <div class="form-group">
-            <label for="tower" class="col-sm-2 control-label">Torn</label>
-            <div class="col-sm-10">
-                <input type="checkbox" id="tower" name="tower" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success">
+            <label for="number" class="col-sm-4 control-label">Passnummer</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="number" name="number" placeholder="Passnummer"
+                       pattern="^[0-9]{1,3}$" data-error="Ange bara siffror, max 3 stycken" required>
+                <div class="help-block with-errors"></div>
             </div>
         </div>
         <div class="form-group">
-            <label for="state" class="col-sm-2 control-label">Skick</label>
-            <div class="col-sm-10">
+            <label for="sign" class="col-sm-4 control-label">Finns passkylt med nummer</label>
+            <div class="col-sm-6">
+                <input type="checkbox" id="sign" name="sign" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger" checked>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="state" class="col-sm-4 control-label">Skick</label>
+            <div class="col-sm-6">
                 <select id="state" name="state" class="form-control">
-                    <option>Utmärkt</option>
-                    <option selected>Bra</option>
-                    <option>Dåligt</option>
-                    <option>Rivningsfärdigt</option>
+                    <option value="5">Utmärkt</option>
+                    <option value="3" selected>Bra</option>
+                    <option value="2" class="alert-warning">Dåligt</option>
+                    <option value="1" class="alert-danger">Rivningsfärdigt</option>
                 </select>
             </div>
         </div>
         <div class="form-group">
-            <label for="move" class="col-sm-2 control-label">Flyttas</label>
-            <div class="col-sm-10">
-                <input type="checkbox" id="move" name="move" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="danger">
+            <label for="tower" class="col-sm-4 control-label">Torn</label>
+            <div class="col-sm-6">
+                <input type="checkbox" id="tower" name="tower" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="default">
             </div>
         </div>
         <div class="form-group">
-            <label for="clear" class="col-sm-2 control-label">Röjas</label>
-            <div class="col-sm-10">
-                <input type="checkbox" id="clear" name="clear" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="danger">
+            <label for="restrictions" class="col-sm-4 control-label">Bör skjutriktningar begränsas</label>
+            <div class="col-sm-6">
+                <input type="checkbox" id="restrictions" name="restrictions" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="danger" data-offstyle="success">
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
+            <label for="move" class="col-sm-4 control-label">Bör passet flyttas</label>
+            <div class="col-sm-6">
+                <input type="checkbox" id="move" name="move" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="danger" data-offstyle="success">
+                Föreslå i så fall en ny plats med hjälp av kartan.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="clear" class="col-sm-4 control-label">Bör det röjas vid passet</label>
+            <div class="col-sm-6">
+                <input type="checkbox" id="clear" name="clear" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="danger" data-offstyle="success">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10">
                 <div id="map">
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
+            <label for="comment" class="col-sm-4 control-label">Eventuellt övriga kommentarer</label>
+            <div class="col-sm-6">
+                <textarea id="comment" name="comment" class="form-control" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-sm-4 control-label">Namn</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Ditt namn" data-error="Vänligen ange ditt namn" required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-6">
                 <button type="submit" class="btn btn-primary">Rapportera</button>
             </div>
         </div>
     </form>
+    <div id="legend"></div>
 </div>
-<script>
-    var map, infoWindow;
-    function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 18,
-            mapTypeId: 'satellite'
-
-        });
-        infoWindow = new google.maps.InfoWindow;
-
-        // Try HTML5 geolocation.
-        var options = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-        };
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-//                    lat: 61.485061,
-//                    lng: 16.250644
-                };
-                console.log("accuracy:", position.coords.accuracy);
-
-                map.setCenter(pos);
-
-                var marker = new google.maps.Marker({
-                    position: pos,
-                    map: map,
-                    title: 'Location',
-                    draggable:true
-                });
-
-                infoWindow.setPosition(pos);
-//                infoWindow.setContent('Location found.');
-//                infoWindow.open(map);
-            }, function() {
-                handleLocationError(true, infoWindow, map.getCenter());
-            }, options);
-        } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-        }
-    }
-
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-            'Error: The Geolocation service failed.' :
-            'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-    }
-</script>
+<script src="js/jquery-3.2.1.slim.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-toggle.min.js"></script>
+<script src="js/validator-min.js"></script>
+<script src="js/map.js"></script>
+<script src="js/form.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6U0UDAkApOU3ozmqldD8uwiIxgliXKoY&callback=initMap"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 </body>
 </html>
