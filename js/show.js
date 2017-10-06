@@ -16,6 +16,10 @@ function initMap() {
     addMarkers(window.map);
 }
 
+function onGetCurrentPosition(position) {
+    window.map.setCenter(position);
+}
+
 function addMarkers(map) {
     $.get('https://script.google.com/macros/s/AKfycbwOX05ZOSZ_ruANDraXpLGUtb-YyZsHnthkucmIJauGXk6sMgI/exec', function( data ) {
         for (var i = 0; i < data.length; i++) {

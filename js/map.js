@@ -32,7 +32,7 @@ function initBaseMap(centerOnLocation) {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
-                window.map.setCenter(pos);
+                onGetCurrentPosition(pos)
             } else {
                 handleLocationError('Du är just nu utanför området, centrerar kartan på Vallen', infoWindow, window.map.getCenter());
             }

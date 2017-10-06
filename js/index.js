@@ -44,6 +44,10 @@ function initMap() {
     });
 
 }
+function onGetCurrentPosition(position) {
+    window.map.setCenter(position);
+    currentLocation.setPosition(position);
+}
 
 function createControl() {
     var control = document.getElementById('map-control');
