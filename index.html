@@ -4,42 +4,15 @@
     <title>Passinventering 2017</title>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-toggle.min.css">
-    <style>
-        #thankyou_message {
-            display: none;
-        }
-        #map {
-            height: 40em;
-        }
-        .honeypot {
-            display: none;
-        }
-        #legend .remove-suggested-location-button {
-            display: none;
-        }
-        #legend {
-            font-family: 'Roboto','sans-serif';
-            background: #fff;
-            padding: 10px;
-            margin: 10px;
-            border: 3px solid #000;
-            display: none;
-        }
-        #legend div {
-            margin-bottom: 0.5em;
-        }
-        #legend img {
-            height: 2em;
-        }
-    </style>
+    <link rel="stylesheet" href="lib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/css/bootstrap-toggle.min.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h2>Passinventering 2017</h2>
+            <!--<h2>Passinventering 2017</h2>-->
         </div>
     </div>
     <div class="row" id="thankyou_message">
@@ -61,6 +34,7 @@
     </div>
     <form id="gform" class="form-horizontal" method="post" data-toggle="validator" role="form"
         action="https://script.google.com/macros/s/AKfycbwOX05ZOSZ_ruANDraXpLGUtb-YyZsHnthkucmIJauGXk6sMgI/exec">
+        <!--
         <div class="form-group honeypot">
             <label for="honeypot" class="col-sm-3 control-label sr-only">Lämna detta fält tomt</label>
             <div class="col-sm-9">
@@ -140,6 +114,7 @@
                 Föreslå i så fall en ny plats med hjälp av kartan.
             </div>
         </div>
+        -->
         <div class="form-group">
             <div class="col-sm-12">
                 <div id="map">
@@ -162,13 +137,15 @@
         </div>
     </form>
     <div id="legend"></div>
+    <div id="map-control"></div>
 </div>
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/bootstrap-toggle.min.js"></script>
-<script src="js/validator.min.js"></script>
-<script src="js/map.js"></script>
-<script src="js/form.js"></script>
+<script src="lib/js/jquery-3.2.1.min.js"></script>
+<script src="lib/js/bootstrap.min.js"></script>
+<script src="lib/js/bootstrap-toggle.min.js"></script>
+<script src="lib/js/validator.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6U0UDAkApOU3ozmqldD8uwiIxgliXKoY&callback=initMap"></script>
+<script src="js/map.js"></script>
+<script src="js/index.js"></script>
+<script src="js/form.js"></script>
 </body>
 </html>
