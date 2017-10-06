@@ -23,9 +23,8 @@ function onGetCurrentPosition(position) {
 function addMarkers(map) {
     $.get('https://script.google.com/macros/s/AKfycbwOX05ZOSZ_ruANDraXpLGUtb-YyZsHnthkucmIJauGXk6sMgI/exec', function( data ) {
         for (var i = 0; i < data.length; i++) {
-            console.log
             var markerItem = data[i];
-            addMarkerWithTimeout(markerItem, i * 200, map)
+            addMarkerWithTimeout(markerItem, i * 50, map)
         }
         // var markers = data.map(function(markerItem, i) {
         //     return new google.maps.Marker({
@@ -54,8 +53,8 @@ function addMarkerWithTimeout(markerItem, timeout, map) {
             },
             title: '' + markerItem.number,
             icon: 'images/' + dotColors[markerItem.area] + '-dot.png',
-            map: map,
-            animation: google.maps.Animation.DROP
+            map: map
+            // animation: google.maps.Animation.DROP
         }));
     }, timeout);
 }

@@ -57,7 +57,7 @@ function createMap() {
         mapTypeControl: true,
         mapTypeControlOptions: {
             style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-            position: google.maps.ControlPosition.TOP_LEFT
+            position: google.maps.ControlPosition.BOTTOM_CENTER
         },
         zoomControl: true,
         zoomControlOptions: {
