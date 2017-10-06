@@ -5,15 +5,20 @@ function moveCurrentLocation() {
 }
 
 function addSuggestedLocation() {
-    $('.add-suggested-location-button').hide();
-    $('.remove-suggested-location-button').show();
-    suggestedLocation.setPosition(window.map.getCenter());
+    // $('.add-suggested-location-button').hide();
+    // $('.remove-suggested-location-button').show();
+    var suggestedPosition = {
+        lat: window.map.getCenter().lat() - 0.0003,
+        lng: window.map.getCenter().lng() - 0.0003,
+
+    }
+    suggestedLocation.setPosition(suggestedPosition);
     suggestedLocation.setMap(window.map);
 }
 
 function removeSuggestedLocation() {
-    $('.remove-suggested-location-button').hide();
-    $('.add-suggested-location-button').show();
+    // $('.remove-suggested-location-button').hide();
+    // $('.add-suggested-location-button').show();
     suggestedLocation.setMap(null);
 }
 
@@ -29,7 +34,7 @@ function initMap() {
     window.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(createLegend());
 
     currentLocation = new google.maps.Marker({
-        title: 'Aktuell plats',
+        title: 'Nuvarande passplacering',
         map: window.map,
         position: window.map.getCenter(),
         icon: 'images/red-dot.png',
@@ -38,7 +43,7 @@ function initMap() {
     });
 
     suggestedLocation = new google.maps.Marker({
-        title: 'Föreslagen ny plats',
+        title: 'Föreslagen ny passplacering',
         icon: 'images/yellow-dot.png',
         draggable:true
     });
@@ -55,13 +60,13 @@ function createControl() {
     var html = '<div class="btn-group" role="group">'
     html += '<a class="btn btn-default btn-sm" onclick="moveCurrentLocation();" role="button">' +
         '<span class="glyphicon glyphicon-screenshot"></span>' +
-        '&nbsp;Flytta aktuell plats</a>';
-    html += '<a class="btn btn-default btn-sm add-suggested-location-button" onclick="addSuggestedLocation();" role="button">' +
-        '<span class="glyphicon glyphicon-move"></span>' +
-        '&nbsp;Föreslå ny plats</a>';
-    html += '<a class="btn btn-default btn-sm remove-suggested-location-button" onclick="removeSuggestedLocation();" role="button">' +
-        '<span class="glyphicon glyphicon-trash"></span>' +
-        '&nbsp;Ta bort föreslagen plats</a>';
+        '&nbsp;Centrera nuvarande passplacering</a>';
+    // html += '<a class="btn btn-default btn-sm add-suggested-location-button" onclick="addSuggestedLocation();" role="button">' +
+    //     '<span class="glyphicon glyphicon-move"></span>' +
+    //     '&nbsp;Föreslå ny plats</a>';
+    // html += '<a class="btn btn-default btn-sm remove-suggested-location-button" onclick="removeSuggestedLocation();" role="button">' +
+    //     '<span class="glyphicon glyphicon-trash"></span>' +
+    //     '&nbsp;Ta bort föreslagen plats</a>';
     html += '</div>'
     control.innerHTML = html;
     return control;
@@ -70,8 +75,8 @@ function createControl() {
 function createLegend() {
     var legend = document.getElementById('map-legend');
     legend.style.display = 'block';
-    var html = '<div><img src="images/red-dot.png"> Aktuell plats</div>';
-    html += '<div><img src="images/yellow-dot.png"> Föreslagen ny plats</div>';
+    var html = '<div><img src="images/red-dot.png">&nbsp;Nuvarande passplacering</div>';
+    html += '<div><img src="images/yellow-dot.png">&nbsp;Ny föreslagen passplacering</div>';
     legend.innerHTML = html;
     return legend;
 }
@@ -84,4 +89,13 @@ $(function() {
     $('[data-toggle]').blur(function() {
         $(this).parent().removeClass('toggle-focus');
     });
+    $('#move').change(function(event) {
+        if(this.checked) {
+            $('.move-help-text').show();
+            addSuggestedLocation();
+        } else {
+            $('.move-help-text').hide();
+            removeSuggestedLocation();
+        }
+    })
 });

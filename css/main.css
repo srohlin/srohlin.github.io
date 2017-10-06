@@ -7,13 +7,16 @@
 .honeypot {
     display: none;
 }
-#legend .remove-suggested-location-button {
+
+.move-help-text {
     display: none;
 }
-
-#map-control add-suggested-location-button {
-
-}
+/*.add-suggested-location-button {*/
+    /*display: none;*/
+/*}*/
+/*.remove-suggested-location-button {*/
+    /*display: none;*/
+/*}*/
 
 #map-control .remove-suggested-location-button {
     display: none;
