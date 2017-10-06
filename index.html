@@ -12,7 +12,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <!--<h2>Passinventering 2017</h2>-->
+            <h2>Passinventering 2017</h2>
         </div>
     </div>
     <div class="row" id="thankyou_message">
@@ -34,17 +34,16 @@
     </div>
     <form id="gform" class="form-horizontal" method="post" data-toggle="validator" role="form"
         action="https://script.google.com/macros/s/AKfycbwOX05ZOSZ_ruANDraXpLGUtb-YyZsHnthkucmIJauGXk6sMgI/exec">
-        <!--
         <div class="form-group honeypot">
             <label for="honeypot" class="col-sm-3 control-label sr-only">Lämna detta fält tomt</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="honeypot" name="honeypot">
+                <input type="text" class="form-control" id="honeypot" name="honeypot" tabindex="-1">
             </div>
         </div>
         <div class="form-group">
             <label for="name" class="col-sm-3 control-label">Namn</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="name" name="name" placeholder="Ditt namn" data-error="Vänligen ange ditt namn" required>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Ditt namn" data-error="Vänligen ange ditt namn" autofocus="autofocus" required tabindex="1">
                 <div class="help-block with-errors"></div>
             </div>
         </div>
@@ -52,7 +51,7 @@
             <label for="area" class="col-sm-3 control-label">Område</label>
             <div class="col-sm-9">
                 <select id="area" name="area" class="form-control"
-                        data-error="Vänligen välj område" required>
+                        data-error="Vänligen välj område" required tabindex="2">
                     <option value="" selected disabled>Välj område</option>
                     <option value="1">Koldemoåsen, Loberget, Brännberget</option>
                     <option value="2">Fångåsen, Åmyret, Lilla Vassberget</option>
@@ -68,20 +67,20 @@
             <label for="number" class="col-sm-3 control-label">Passnummer</label>
             <div class="col-sm-9">
                 <input type="number" class="form-control" id="number" name="number" placeholder="Passnummer"
-                       pattern="\d*" data-error="Ange bara siffror" required>
+                       pattern="\d*" data-error="Ange bara siffror" required tabindex="3">
                 <div class="help-block with-errors"></div>
             </div>
         </div>
         <div class="form-group">
             <label for="sign" class="col-sm-3 control-label">Finns passkylt med nummer</label>
             <div class="col-sm-9">
-                <input type="checkbox" id="sign" name="sign" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger" checked>
+                <input type="checkbox" id="sign" name="sign" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger" checked tabindex="4">
             </div>
         </div>
         <div class="form-group">
             <label for="state" class="col-sm-3 control-label">Skick</label>
             <div class="col-sm-9">
-                <select id="state" name="state" class="form-control">
+                <select id="state" name="state" class="form-control" tabindex="5">
                     <option value="5">Utmärkt</option>
                     <option value="3" selected>Bra</option>
                     <option value="2" class="alert-warning">Dåligt</option>
@@ -92,29 +91,28 @@
         <div class="form-group">
             <label for="tower" class="col-sm-3 control-label">Torn</label>
             <div class="col-sm-9">
-                <input type="checkbox" id="tower" name="tower" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="default">
+                <input type="checkbox" id="tower" name="tower" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="default" tabindex="6">
             </div>
         </div>
         <div class="form-group">
             <label for="restrictions" class="col-sm-3 control-label">Bör skjutriktningar begränsas</label>
             <div class="col-sm-9">
-                <input type="checkbox" id="restrictions" name="restrictions" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="danger" data-offstyle="success">
+                <input type="checkbox" id="restrictions" name="restrictions" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="danger" data-offstyle="success" tabindex="7">
             </div>
         </div>
         <div class="form-group">
             <label for="clear" class="col-sm-3 control-label">Bör det röjas vid passet</label>
             <div class="col-sm-9">
-                <input type="checkbox" id="clear" name="clear" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="danger" data-offstyle="success">
+                <input type="checkbox" id="clear" name="clear" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="danger" data-offstyle="success" tabindex="8">
             </div>
         </div>
         <div class="form-group">
             <label for="move" class="col-sm-3 control-label">Bör passet flyttas</label>
             <div class="col-sm-9">
-                <input type="checkbox" id="move" name="move" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="danger" data-offstyle="success">
+                <input type="checkbox" id="move" name="move" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="danger" data-offstyle="success" tabindex="9">
                 Föreslå i så fall en ny plats med hjälp av kartan.
             </div>
         </div>
-        -->
         <div class="form-group">
             <div class="col-sm-12">
                 <div id="map">
@@ -124,21 +122,22 @@
         <div class="form-group">
             <label for="comment" class="col-sm-3 control-label">Eventuellt övriga kommentarer</label>
             <div class="col-sm-9">
-                <textarea id="comment" name="comment" class="form-control" rows="3"></textarea>
+                <textarea id="comment" name="comment" class="form-control" rows="3" tabindex="10"></textarea>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" tabindex="11">
                     <span class="glyphicon glyphicon-send"></span>
                     Skicka in rapport
                 </button>
             </div>
         </div>
     </form>
-    <div id="legend"></div>
+    <div id="map-legend"></div>
     <div id="map-control"></div>
 </div>
+<script src="lib/js/cookies.js"></script>
 <script src="lib/js/jquery-3.2.1.min.js"></script>
 <script src="lib/js/bootstrap.min.js"></script>
 <script src="lib/js/bootstrap-toggle.min.js"></script>

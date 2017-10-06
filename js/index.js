@@ -1,9 +1,7 @@
 var currentLocation, suggestedLocation, mousedown;
 
-function removeSuggestedLocation() {
-    $('.remove-suggested-location-button').hide();
-    $('.add-suggested-location-button').show();
-    suggestedLocation.setMap(null);
+function moveCurrentLocation() {
+    currentLocation.setPosition(window.map.getCenter());
 }
 
 function addSuggestedLocation() {
@@ -13,21 +11,27 @@ function addSuggestedLocation() {
     suggestedLocation.setMap(window.map);
 }
 
+function removeSuggestedLocation() {
+    $('.remove-suggested-location-button').hide();
+    $('.add-suggested-location-button').show();
+    suggestedLocation.setMap(null);
+}
 
 // Try HTML5 geolocation.
 function initMap() {
-    var currentPosition = window.positions['vallen'];
 
-    var infoWindow = new google.maps.InfoWindow;
-    window.map = createMap();
-    window.map.setCenter(currentPosition);
+    initBaseMap(true);
+    if (window.map.getCenter().lat().toFixed(6) == window.positions['vallen'].lat.toFixed(6) &&
+        window.map.getCenter().lng().toFixed(6) == window.positions['vallen'].lng.toFixed(6)) {
+        window.map.setZoom(16);
+    }
     window.map.controls[google.maps.ControlPosition.TOP_CENTER].push(createControl());
     window.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(createLegend());
 
     currentLocation = new google.maps.Marker({
         title: 'Aktuell plats',
-        position: currentPosition,
         map: window.map,
+        position: window.map.getCenter(),
         icon: 'images/red-dot.png',
         animation: google.maps.Animation.DROP,
         draggable:true
@@ -39,39 +43,19 @@ function initMap() {
         draggable:true
     });
 
-
-    window.map.setCenter(window.positions['vallen']);
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            window.map.setCenter(pos);
-            currentLocation.setPosition(pos);
-            infoWindow.setPosition(pos);
-        }, function() {
-            handleLocationError(true, infoWindow, window.map.getCenter());
-        }, {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-        });
-    } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, window.map.getCenter());
-    }
 }
 
 function createControl() {
     var control = document.getElementById('map-control');
     control.style.display = 'block';
     var html = '<div class="btn-group" role="group">'
-    html += '<a class="btn btn-default btn-sm add-suggested-location-button" onclick="addSuggestedLocation();" href="#" role="button">' +
+    html += '<a class="btn btn-default btn-sm" onclick="moveCurrentLocation();" role="button">' +
+        '<span class="glyphicon glyphicon-screenshot"></span>' +
+        '&nbsp;Flytta aktuell plats</a>';
+    html += '<a class="btn btn-default btn-sm add-suggested-location-button" onclick="addSuggestedLocation();" role="button">' +
         '<span class="glyphicon glyphicon-move"></span>' +
         '&nbsp;Föreslå ny plats</a>';
-    html += '<a class="btn btn-default btn-sm remove-suggested-location-button" onclick="removeSuggestedLocation();" href="#" role="button">' +
+    html += '<a class="btn btn-default btn-sm remove-suggested-location-button" onclick="removeSuggestedLocation();" role="button">' +
         '<span class="glyphicon glyphicon-trash"></span>' +
         '&nbsp;Ta bort föreslagen plats</a>';
     html += '</div>'
@@ -80,7 +64,7 @@ function createControl() {
 }
 
 function createLegend() {
-    var legend = document.getElementById('legend');
+    var legend = document.getElementById('map-legend');
     legend.style.display = 'block';
     var html = '<div><img src="images/red-dot.png"> Aktuell plats</div>';
     html += '<div><img src="images/yellow-dot.png"> Föreslagen ny plats</div>';
@@ -88,10 +72,12 @@ function createLegend() {
     return legend;
 }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
-        'Fel: Lyckades inte läsa in din plats.' :
-        'Fel: Din webbläsare vill inte dela med sig av din plats.');
-    infoWindow.open(window.map);
-}
+$(function() {
+    $('#name').val(docCookies.getItem("reporter-name"));
+    $('[data-toggle]').focus(function() {
+        $(this).parent().addClass('toggle-focus'); //.find('.toggle-on')
+    });
+    $('[data-toggle]').blur(function() {
+        $(this).parent().removeClass('toggle-focus');
+    });
+});

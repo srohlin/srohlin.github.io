@@ -50,11 +50,12 @@ function handleFormSubmit(event) {  // handles form submit withtout any jquery
 
     delete data.honeypot;
 
-    data['latitude'] = currentLocation.position.lat();
-    data['longitude'] = currentLocation.position.lng();
-    if (data.move == "true" && suggestedLocation.position) {
-        data['moveLatitude'] = suggestedLocation.position.lat();
-        data['moveLongitude'] = suggestedLocation.position.lng();
+    docCookies.setItem("reporter-name", data.name, 3600 * 24 * 30);
+    data['latitude'] = currentLocation.position.lat().toFixed(6);
+    data['longitude'] = currentLocation.position.lng().toFixed(6);
+    if (suggestedLocation.position) {
+        data['moveLatitude'] = suggestedLocation.position.lat().toFixed(6);
+        data['moveLongitude'] = suggestedLocation.position.lng().toFixed(6);
     } else {
         data['moveLatitude'] = '';
         data['moveLongitude'] = '';
