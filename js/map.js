@@ -25,7 +25,7 @@ function initBaseMap(centerOnLocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
 
             if (position.coords.latitude > window.latitudeMin &&
-                position.coords.latitude > window.latitudeMax &&
+                position.coords.latitude < window.latitudeMax &&
                 position.coords.longitude > window.longitudeMin &&
                 position.coords.longitude < window.longitudeMax) {
                 var pos = {
